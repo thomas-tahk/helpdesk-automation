@@ -1,4 +1,4 @@
-export type ActivityType = 'note' | 'comment' | 'system' | 'email'
+export type ActivityType = 'note' | 'comment' | 'system' | 'email' | 'field-change'
 
 export type ActivityItem = {
   id: string
@@ -9,22 +9,24 @@ export type ActivityItem = {
 }
 
 export const incidentRecord = {
-  title: 'Email down for Sales',
+  title: 'Sales team unable to send or receive email via Outlook web client',
   recordNumber: 'INC0010001',
   state: 'In Progress',
-  assignedTo: '123456',
+  assignedTo: 'Demo Agent',
+  callerName: 'Jordan Rivera',
+  assignedToName: 'Demo Agent',
   fields: {
-    short_description: 'Sales team unable to access Outlook web client.',
-    caller: '123456',
+    short_description: 'Sales team unable to send or receive email via Outlook web client',
+    caller: 'Jordan Rivera',
     contact_type: 'Email',
     impact: '2-Medium',
     urgency: '1-High',
-    priority: '1 - Critical',
+    priority: '2 - High',
     assignment_group: 'Messaging Operations',
-    assigned_to: '123456',
-    watch_list: '555555, 777777',
-    cause_notes: 'Email routing service stalled after patch rollout.',
-    resolution_notes: 'Restarted routing cluster and verified queue health.',
+    assigned_to: 'Demo Agent',
+    watch_list: '',
+    cause_notes: '',
+    resolution_notes: '',
   },
 }
 
@@ -33,35 +35,42 @@ export const initialActivity: ActivityItem[] = [
     id: 'act-1',
     type: 'system',
     author: 'System',
-    content: 'Incident opened and assigned to Messaging Operations.',
-    timestamp: 'Today 08:14',
+    content: 'Incident created and routed to Messaging Operations queue.',
+    timestamp: '2026-02-16 08:14 AM',
   },
   {
     id: 'act-2',
     type: 'comment',
-    author: '555555',
-    content: 'Unable to send or receive email from the sales shared mailbox.',
-    timestamp: 'Today 08:22',
+    author: 'Jordan Rivera',
+    content: 'We cannot send or receive email from the sales shared mailbox. Multiple staff members are affected since about 7:45 this morning.',
+    timestamp: '2026-02-16 08:22 AM',
   },
   {
     id: 'act-3',
     type: 'note',
-    author: '123456',
-    content: 'Reviewing mail relay logs and recent changes.',
-    timestamp: 'Today 08:30',
+    author: 'Demo Agent',
+    content: 'Reviewing mail transport logs and recent patch history. Checking if the weekend maintenance window caused any service disruption.',
+    timestamp: '2026-02-16 08:30 AM',
   },
   {
     id: 'act-4',
-    type: 'system',
-    author: 'System',
-    content: 'Priority auto-calculated to Critical based on impact/urgency.',
-    timestamp: 'Today 08:31',
+    type: 'field-change',
+    author: 'Demo Agent',
+    content: 'Incident state  In Progress was New',
+    timestamp: '2026-02-16 08:31 AM',
   },
   {
     id: 'act-5',
+    type: 'system',
+    author: 'System',
+    content: 'Priority auto-calculated to 2 - High based on impact and urgency values.',
+    timestamp: '2026-02-16 08:31 AM',
+  },
+  {
+    id: 'act-6',
     type: 'email',
-    author: '123456',
-    content: 'Sent update to sales leadership; next update in 30 minutes.',
-    timestamp: 'Today 08:36',
+    author: 'Demo Agent',
+    content: 'Sent status update to sales leadership. Next update scheduled in 30 minutes.',
+    timestamp: '2026-02-16 08:36 AM',
   },
 ]
