@@ -1,118 +1,107 @@
-# SOW Prototype — Feature Verification Checklist
-
-Use this checklist to track what's implemented, what needs visual verification via screenshots, and what's still pending. When you have reference screenshots for an area, share them so the UI can be refined to match.
+# SOW Prototype — Feature Checklist
 
 ---
 
-## App Shell (Global Chrome)
+## Needs Your Input (Screenshots / Specs)
 
-| Feature | Status | Screenshots Needed? |
-|---------|--------|-------------------|
-| Top bar: logo, nav links, centered title pill | Done | No — matches reference |
-| Top bar: mode toggle (Current / Proposed) | Done | No |
-| Top bar: search bar, settings/help/bell icons, avatar | Done | No |
-| Left nav rail: 6 icons (Home, Lists, Tasks, People, Reports, Settings) | Done | No |
-| Left nav rail: active state highlight | Done | No |
+These items are blocked until you provide reference screenshots or clarify expected behavior. Organized by where you'll find them in ServiceNow SOW.
 
----
+### Home Page (`/home`)
 
-## Home Page
+| # | What's Needed | Where on Screen |
+|---|--------------|-----------------|
+| 1 | **Widget card click-through views** — What list/table appears when you click one of the donut chart cards (My Work, Unassigned, etc.)? Is it a table, card list, or something else? | Center area — the 4 metric cards below the greeting |
 
-| Feature | Status | Screenshots Needed? |
-|---------|--------|-------------------|
-| Greeting card with avatar | Done | No |
-| 4 donut-chart widget cards (My Work, Unassigned, etc.) | Done | No |
-| Widget cards are clickable (hover effect) | Done | **Yes** — need screenshots of the list view that opens when clicking a widget card |
-| Sidebar: Upcoming section (Today/Tomorrow tabs) | Done | No |
-| Sidebar: Quick links section | Done | No |
-| Link to incident record from sidebar | Done | No |
+### Incident Page (`/incident/INC0010001`)
 
----
+| # | What's Needed | Where on Screen |
+|---|--------------|-----------------|
+| 2 | **Details tab content** — What fields/sections appear under the "Details" tab? | Record header tab bar → "Details" tab → left column below tabs |
+| 3 | **Related Records tab content** — What related record types are shown? (Incident Tasks, Change Requests, Problems, etc.) | Record header tab bar → "Related records" tab → left column below tabs |
+| 4 | **State badge in record header** — Does your SOW show a state badge (e.g. "In Progress") near the record title or header area? If so, where exactly? | Record header area — near title / record number |
+| 5 | **Templates panel** — Does the current templates list/layout match what you see? Verify the Favorites/My Templates/All tabs and item rows. | Right column → click the document icon (📄) in the salmon tool strip |
+| 6 | **Recommendations panel** — Do the KB article and resolution note cards match your SOW layout? | Right column → click the compass icon (🧭) in the salmon tool strip |
 
-## Incident Page — Record Header
+### Global / Multiple Pages
 
-| Feature | Status | Screenshots Needed? |
-|---------|--------|-------------------|
-| Editable title input | Done | No |
-| Record number + assigned-to tooltip | Done | No |
-| State badge (e.g. "In Progress") | Done | No |
-| Save / Resolve / More actions buttons | Done | No |
-| Overview / Details / Related Records tabs | Done (clickable, with placeholders) | **Yes** — need screenshots of Details tab and Related Records tab content |
+| # | What's Needed | Where on Screen |
+|---|--------------|-----------------|
+| 7 | **Proposed mode UI differences** — What changes visually when you switch to "Proposed" mode? (AI suggestion highlights, field diffs, extra panels, etc.) | Top bar → "Current / Proposed" toggle → observe changes across the page |
+| 8 | **Additional tool rail panels** — Agent Assist, Collaborate, and Email Templates icons exist in the strip but have no panel content yet. Screenshots of each. | Right column → salmon tool strip → the icons that currently do nothing on click (sparkle, users, mail) |
+| 9 | **List/table views** — What does a ticket list page look like? (Accessed from left nav "Lists" icon or other navigation) | Left nav rail → Lists icon (2nd from top) |
+| 10 | **Search functionality** — What happens when you type in the global search bar? Dropdown? Dedicated results page? | Top bar → search input field |
 
----
+### Left Column — Verify Scrolling
 
-## Incident Page — Left Column (Form Fields)
-
-| Feature | Status | Screenshots Needed? |
-|---------|--------|-------------------|
-| Summary section: Short description, Caller, Contact type | Done | No |
-| Impact section: Impact (1-4), Urgency (1-4), Priority (auto) | Done | No |
-| Assignment section: Group, Assigned to, Watch list | Done | No |
-| Cause & Resolution section: Probable cause, Resolution notes | Done | No |
-| Collapsible sections (chevron toggle, edit pencil) | Done | No |
-| Column is resizable via drag handle | Done | No |
-| Scrolling when content overflows | Done | Verify — resize browser to confirm vertical scroll works |
+| # | What's Needed | Where on Screen |
+|---|--------------|-----------------|
+| 11 | **Field overflow / scroll behavior** — Resize your browser narrower and expand all collapsible sections. Confirm fields don't get clipped and the column scrolls properly. | Incident page → left column → expand all sections, then shrink the window |
 
 ---
 
-## Incident Page — Middle Column (Activity)
+## Implemented & Complete
 
-| Feature | Status | Screenshots Needed? |
-|---------|--------|-------------------|
-| Compose box: Work notes tab (yellow bg, lock icon) | Done | No |
-| Compose box: Additional comments tab | Done | No |
-| Compose box: Email tab | Done | No |
-| Post button (adds to activity feed) | Done | No |
-| Activity feed: avatar initials, type labels, timestamps | Done | No |
-| Activity feed: color-coded by type | Done | No |
-| Activity feed: filter/sort/search toolbar | Done (visual only) | No |
-| Column is resizable via drag handle | Done | No |
+These features are built and don't need further input unless something looks off when you visually review.
 
----
+### App Shell (Global Chrome)
 
-## Incident Page — Right Column (Tool Rail + Panels)
+- Top bar: logo, nav links (All/Favorites/History/Workspaces), centered title pill
+- Top bar: mode toggle switch (Current / Proposed)
+- Top bar: search bar, settings/help/bell icons, avatar
+- Left nav rail: 6 icons (Home, Lists, Tasks, People, Reports, Settings)
+- Left nav rail: active state highlight
 
-| Feature | Status | Screenshots Needed? |
-|---------|--------|-------------------|
-| Tool rail: 8 icons on salmon strip | Done | No |
-| Tool rail: active indicator (left border) | Done | No |
-| Panel: Record Info (SLAs, Caller, Assigned to, Quick facts) | Done | No |
-| Panel: Templates (Favorites/My/All tabs, expand preview) | Done | **Maybe** — verify templates list matches reference |
-| Panel: Attachments (empty state with upload prompt) | Done | No |
-| Panel: Recommendations (KB articles, resolution notes) | Done | **Maybe** — verify card layout matches reference |
-| Panel: skeleton loading on switch | Done | No |
-| Column is resizable via drag handle | Done | No |
+### Home Page (`/home`)
 
----
+- Greeting card with avatar
+- 4 donut-chart widget cards with hover effect (clickable, logs to console)
+- Sidebar: Upcoming section with Today/Tomorrow tabs
+- Sidebar: Quick links section
+- Link to incident record from sidebar
 
-## Mode Toggle (Current vs. Proposed)
+### Incident Page — Record Header
 
-| Feature | Status | Screenshots Needed? |
-|---------|--------|-------------------|
-| Toggle switch in top bar | Done | No |
-| Assignment section defaults open when mode = "proposed" | Done | No |
-| Additional proposed-mode differences | Pending | **Yes** — need screenshots showing what changes in Proposed mode (field highlights, AI suggestions, etc.) |
+- Editable title input
+- Record number + assigned-to tooltip on hover
+- Save / Resolve / More actions buttons
+- Overview / Details / Related Records tabs (clickable, Details & Related show placeholders)
 
----
+### Incident Page — Left Column (Form Fields)
 
-## Not Yet Started (Need Screenshots / Specs)
+- Summary section: Short description, Caller (lookup), Contact type (select)
+- Impact section: Impact (1–4), Urgency (1–4), Priority (auto-calculated, readonly)
+- Assignment section: Assignment group, Assigned to, Watch list
+- Cause & Resolution section: Probable cause, Resolution notes (textareas)
+- Collapsible sections with chevron toggle and edit pencil icon
+- Column resizable via drag handle
+- Assignment section auto-opens in Proposed mode
 
-These areas need reference material before implementation:
+### Incident Page — Middle Column (Activity)
 
-1. **Widget card click-through views** — What list layout appears when clicking a home page widget? Table? Cards?
-2. **Details tab content** — What fields/sections appear in the incident Details tab?
-3. **Related Records tab content** — What related record types are shown? (Incident Tasks, Change Requests, Problems, etc.)
-4. **Proposed mode UI differences** — What visual changes occur when switching to Proposed mode? (AI suggestion highlights, field diff indicators, etc.)
-5. **Additional tool rail panels** — Agent Assist, Collaborate, Email Templates panels (currently icons only, no panel content)
-6. **List/table views** — For the Lists nav item and any ticket list pages
-7. **Search functionality** — Global search behavior and results display
+- Compose box with 3 tabs: Work notes (yellow bg, lock icon), Additional comments, Email
+- Post button adds new item to activity feed
+- Activity feed with avatar initials, type labels, timestamps
+- Color-coded entries by type (system/comment/note/field-change/email)
+- Filter/sort/search toolbar (visual only)
+- Column resizable via drag handle
+
+### Incident Page — Right Column (Tool Rail + Panels)
+
+- Tool rail: 8 icons on salmon-colored strip
+- Active panel indicator (left border highlight)
+- Panel: Record Info — SLAs, Caller card, Assigned to card, Quick facts
+- Panel: Templates — Favorites/My Templates/All tabs, star icons, expandable preview
+- Panel: Attachments — empty state with upload prompt
+- Panel: Recommendations — KB article card, resolution note cards
+- Skeleton loading on panel switch
+- Column resizable via drag handle
 
 ---
 
 ## How to Provide Screenshots
 
 1. Navigate to the relevant screen in ServiceNow SOW
-2. Take a screenshot (full page or relevant section)
+2. Take a screenshot (full page or the relevant section)
 3. Drop the image in the `img/` folder with a descriptive name, e.g.:
    - `img/details-tab.png`
    - `img/widget-click-list.png`

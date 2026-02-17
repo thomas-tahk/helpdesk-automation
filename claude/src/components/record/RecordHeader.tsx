@@ -22,7 +22,6 @@ export default function RecordHeader({
   title,
   onTitleChange,
   recordNumber,
-  state,
   assignedTo,
   activeTab,
   onTabChange,
@@ -36,7 +35,6 @@ export default function RecordHeader({
           onChange={(e) => onTitleChange(e.target.value)}
           title={`${recordNumber} — Assigned to: ${assignedTo}`}
         />
-        <span className="badge badge-gray" style={{ marginRight: 'auto' }}>{state}</span>
         <Tag size={14} className="record-tag-icon" />
         <div className="record-actions">
           <button className="btn" onClick={() => console.log('Save')}>Save</button>
