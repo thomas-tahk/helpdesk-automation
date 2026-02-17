@@ -1,12 +1,22 @@
 import { MoreHorizontal, Tag } from 'lucide-react'
 
+export type RecordTab = 'overview' | 'details' | 'related'
+
 type RecordHeaderProps = {
   title: string
   onTitleChange: (value: string) => void
   recordNumber: string
   state: string
   assignedTo: string
+  activeTab: RecordTab
+  onTabChange: (tab: RecordTab) => void
 }
+
+const tabs: { id: RecordTab; label: string }[] = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'details', label: 'Details' },
+  { id: 'related', label: 'Related records' },
+]
 
 export default function RecordHeader({
   title,
@@ -14,6 +24,8 @@ export default function RecordHeader({
   recordNumber,
   state,
   assignedTo,
+  activeTab,
+  onTabChange,
 }: RecordHeaderProps) {
   return (
     <>
@@ -24,6 +36,7 @@ export default function RecordHeader({
           onChange={(e) => onTitleChange(e.target.value)}
           title={`${recordNumber} — Assigned to: ${assignedTo}`}
         />
+        <span className="badge badge-gray" style={{ marginRight: 'auto' }}>{state}</span>
         <Tag size={14} className="record-tag-icon" />
         <div className="record-actions">
           <button className="btn" onClick={() => console.log('Save')}>Save</button>
@@ -36,9 +49,16 @@ export default function RecordHeader({
         </div>
       </section>
       <div className="record-tabs">
-        <button type="button" className="record-tab active">Overview</button>
-        <button type="button" className="record-tab">Details</button>
-        <button type="button" className="record-tab">Related records</button>
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            type="button"
+            className={`record-tab${activeTab === tab.id ? ' active' : ''}`}
+            onClick={() => onTabChange(tab.id)}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
     </>
   )

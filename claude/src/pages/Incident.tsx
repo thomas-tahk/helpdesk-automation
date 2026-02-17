@@ -5,6 +5,7 @@ import FieldRenderer from '../components/fields/FieldRenderer'
 import type { FieldSpec } from '../components/fields/fields'
 import CollapsibleSection from '../components/record/CollapsibleSection'
 import RecordHeader from '../components/record/RecordHeader'
+import type { RecordTab } from '../components/record/RecordHeader'
 import RecordPageLayout from '../components/record/RecordPageLayout'
 import ToolRail from '../components/tools/ToolRail'
 import type { ToolPanelId } from '../components/tools/ToolRail'
@@ -22,8 +23,8 @@ const summaryFields: FieldSpec[] = [
 ]
 
 const impactFields: FieldSpec[] = [
-  { key: 'impact', label: 'Impact', type: 'select', options: ['1-High', '2-Medium', '3-Low'] },
-  { key: 'urgency', label: 'Urgency', type: 'select', options: ['1-High', '2-Medium', '3-Low'] },
+  { key: 'impact', label: 'Impact', type: 'select', options: ['1 - High', '2 - Medium', '3 - Low', '4 - None'] },
+  { key: 'urgency', label: 'Urgency', type: 'select', options: ['1 - High', '2 - Medium', '3 - Low', '4 - None'] },
   { key: 'priority', label: 'Priority', type: 'readonly' },
 ]
 
@@ -39,9 +40,12 @@ const causeFields: FieldSpec[] = [
 ]
 
 function computePriority(impact: string, urgency: string) {
-  if (impact.startsWith('1') && urgency.startsWith('1')) return '1 - Critical'
-  if (impact.startsWith('1') || urgency.startsWith('1')) return '2 - High'
-  if (impact.startsWith('2') && urgency.startsWith('2')) return '3 - Moderate'
+  const i = parseInt(impact) || 4
+  const u = parseInt(urgency) || 4
+  const score = Math.min(i, u)
+  if (score === 1) return '1 - Critical'
+  if (score === 2) return '2 - High'
+  if (score === 3) return '3 - Moderate'
   return '4 - Low'
 }
 
@@ -52,6 +56,7 @@ export default function Incident() {
   const [activityItems, setActivityItems] = useState(initialActivity)
   const [activePanel, setActivePanel] = useState<ToolPanelId>('record')
   const [panelLoading, setPanelLoading] = useState(false)
+  const [activeTab, setActiveTab] = useState<RecordTab>('overview')
 
   useEffect(() => {
     const timer = setTimeout(() => setPanelLoading(false), 200)
@@ -87,6 +92,55 @@ export default function Incident() {
     }
   }, [activePanel, fields, panelLoading])
 
+  const leftColumn = (
+    <>
+      <CollapsibleSection title="Summary" defaultOpen>
+        {summaryFields.map((f) => (
+          <FieldRenderer key={f.key} field={f} value={fields[f.key as keyof typeof fields] as string} onChange={updateField} />
+        ))}
+      </CollapsibleSection>
+      <CollapsibleSection
+        title="Impact"
+        defaultOpen
+        badge={<span className="badge badge-gray">{fields.impact}</span>}
+      >
+        {impactFields.map((f) => (
+          <FieldRenderer key={f.key} field={f} value={fields[f.key as keyof typeof fields] as string} onChange={updateField} />
+        ))}
+      </CollapsibleSection>
+      <CollapsibleSection
+        key={`assignment-${mode}`}
+        title="Assignment"
+        defaultOpen={mode === 'proposed'}
+      >
+        {assignmentFields.map((f) => (
+          <FieldRenderer key={f.key} field={f} value={fields[f.key as keyof typeof fields] as string} onChange={updateField} />
+        ))}
+      </CollapsibleSection>
+      <CollapsibleSection title="Cause & Resolution">
+        {causeFields.map((f) => (
+          <FieldRenderer key={f.key} field={f} value={fields[f.key as keyof typeof fields] as string} onChange={updateField} />
+        ))}
+      </CollapsibleSection>
+    </>
+  )
+
+  const detailsPlaceholder = (
+    <div style={{ padding: 'var(--space-4)', color: 'var(--text-muted)', fontSize: 'var(--font-size-sm)' }}>
+      <p>Details view fields will go here. Provide screenshots to flesh this out.</p>
+    </div>
+  )
+
+  const relatedPlaceholder = (
+    <div style={{ padding: 'var(--space-4)', color: 'var(--text-muted)', fontSize: 'var(--font-size-sm)' }}>
+      <p>Related records (Incident Tasks, Change Requests, etc.) will go here. Provide screenshots to flesh this out.</p>
+    </div>
+  )
+
+  const tabContent = activeTab === 'overview' ? leftColumn
+    : activeTab === 'details' ? detailsPlaceholder
+    : relatedPlaceholder
+
   return (
     <div className="incident-page">
       <RecordHeader
@@ -95,41 +149,12 @@ export default function Incident() {
         recordNumber={incidentRecord.recordNumber}
         state={incidentRecord.state}
         assignedTo={incidentRecord.assignedTo}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
       />
 
       <RecordPageLayout
-        left={
-          <>
-            <CollapsibleSection title="Summary" defaultOpen>
-              {summaryFields.map((f) => (
-                <FieldRenderer key={f.key} field={f} value={fields[f.key as keyof typeof fields] as string} onChange={updateField} />
-              ))}
-            </CollapsibleSection>
-            <CollapsibleSection
-              title="Impact"
-              defaultOpen
-              badge={<span className="badge badge-gray">{fields.impact}</span>}
-            >
-              {impactFields.map((f) => (
-                <FieldRenderer key={f.key} field={f} value={fields[f.key as keyof typeof fields] as string} onChange={updateField} />
-              ))}
-            </CollapsibleSection>
-            <CollapsibleSection
-              key={`assignment-${mode}`}
-              title="Assignment"
-              defaultOpen={mode === 'proposed'}
-            >
-              {assignmentFields.map((f) => (
-                <FieldRenderer key={f.key} field={f} value={fields[f.key as keyof typeof fields] as string} onChange={updateField} />
-              ))}
-            </CollapsibleSection>
-            <CollapsibleSection title="Cause & Resolution">
-              {causeFields.map((f) => (
-                <FieldRenderer key={f.key} field={f} value={fields[f.key as keyof typeof fields] as string} onChange={updateField} />
-              ))}
-            </CollapsibleSection>
-          </>
-        }
+        left={tabContent}
         middle={
           <>
             <ComposeBox onPost={(item) => setActivityItems((prev) => [item, ...prev])} />
