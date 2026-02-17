@@ -12,7 +12,7 @@ function DonutWidget({ title, total, segments }: {
   let offset = 0
 
   return (
-    <div className="widget-card">
+    <div className="widget-card" onClick={() => console.log(`Widget clicked: ${title}`)} role="button" tabIndex={0}>
       <div className="widget-card-title">{title}</div>
       <div className="widget-donut">
         <svg viewBox="0 0 100 100">
