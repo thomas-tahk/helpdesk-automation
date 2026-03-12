@@ -9,37 +9,37 @@ export type ActivityItem = {
 }
 
 export const incidentRecord = {
-  title: 'Sales team unable to send or receive email via Outlook web client',
+  title: '[Sample] Email service disruption affecting multiple users',
   recordNumber: 'INC0010001',
   state: 'In Progress',
   assignedTo: 'Demo Agent',
-  callerName: 'Jordan Rivera',
+  callerName: 'Demo Caller',
   assignedToName: 'Demo Agent',
   fields: {
     // Overview / Summary
-    short_description: 'Sales team unable to send or receive email via Outlook web client',
-    caller: 'Jordan Rivera',
+    short_description: '[Sample] Email service disruption affecting multiple users',
+    caller: 'Demo Caller',
     contact_type: 'Email',
     // Impact
     impact: '2 - Medium',
     urgency: '1 - High',
     priority: '2 - High',
     // Assignment
-    assignment_group: 'Messaging Operations',
+    assignment_group: 'Demo Group',
     assigned_to: 'Demo Agent',
     watch_list: '',
     // Cause & Resolution
     cause_notes: '',
     resolution_notes: '',
     // Details — Incident section
-    description: 'Phone Number: 505-555-0100\nRoom Number: A114\nSales team is unable to send or receive email from the sales shared mailbox since approximately 7:45 AM. Multiple staff members are affected.',
+    description: 'Phone Number: 555-000-0000\nRoom Number: [Room]\n[Sample description] Users in the affected department are unable to send or receive email. Issue began at approximately 7:45 AM. Multiple staff members are affected.',
     state: 'In Progress',
-    business_phone: '--',
-    mobile_phone: '--',
+    business_phone: '555-000-0000',
+    mobile_phone: '555-000-0001',
     middle_name: '',
-    location: '',
+    location: '[Sample Location]',
     work_notes_list: '',
-    managed_by_group: 'Messaging Operations',
+    managed_by_group: 'Demo Group',
     channel: 'Email',
     category: '-- None --',
     subcategory: '-- None --',
@@ -61,19 +61,19 @@ export const incidentRecord = {
 
 export const incidentTasks = [
   {
-    number: 'TASK0020088',
+    number: 'TASK0001001',
     priority: '4 - Low',
     state: 'Closed Complete',
-    assignedTo: 'Michael Reese',
-    shortDescription: 'Please reset the AD tokens for the user.',
+    assignedTo: 'Demo Agent 2',
+    shortDescription: '[Sample task] Reset authentication tokens for affected account',
     taskType: 'Incident Task',
   },
   {
-    number: 'TASK0020089',
+    number: 'TASK0001002',
     priority: '4 - Low',
     state: 'Open',
     assignedTo: '(empty)',
-    shortDescription: "Check the user's email for suspicious activity",
+    shortDescription: '[Sample task] Review account for security flags',
     taskType: 'Incident Task',
   },
 ]
@@ -83,21 +83,21 @@ export const initialActivity: ActivityItem[] = [
     id: 'act-1',
     type: 'system',
     author: 'System',
-    content: 'Incident created and routed to Messaging Operations queue.',
+    content: 'Incident created and routed to Demo Group queue.',
     timestamp: '2026-02-16 08:14 AM',
   },
   {
     id: 'act-2',
     type: 'comment',
-    author: 'Jordan Rivera',
-    content: 'We cannot send or receive email from the sales shared mailbox. Multiple staff members are affected since about 7:45 this morning.',
+    author: 'Demo Caller',
+    content: '[Sample comment] Unable to send or receive email from the shared mailbox. Multiple staff members are affected since about 7:45 this morning.',
     timestamp: '2026-02-16 08:22 AM',
   },
   {
     id: 'act-3',
     type: 'note',
     author: 'Demo Agent',
-    content: 'Reviewing mail transport logs and recent patch history. Checking if the weekend maintenance window caused any service disruption.',
+    content: '[Sample work note] Reviewing mail transport logs and recent patch history. Checking if the weekend maintenance window caused any service disruption.',
     timestamp: '2026-02-16 08:30 AM',
   },
   {
@@ -118,7 +118,7 @@ export const initialActivity: ActivityItem[] = [
     id: 'act-6',
     type: 'email',
     author: 'Demo Agent',
-    content: 'Sent status update to sales leadership. Next update scheduled in 30 minutes.',
+    content: '[Sample email] Sent status update to stakeholders. Next update scheduled in 30 minutes.',
     timestamp: '2026-02-16 08:36 AM',
   },
 ]

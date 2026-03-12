@@ -1,25 +1,25 @@
 import type { ActivityItem } from './incident_INC0010001'
 
 export const interactionRecord = {
-  title: '2 Step Backup verification code request',
+  title: '[Sample] Demo phone interaction',
   recordNumber: 'IMS0002749',
   state: 'Closed Complete',
-  openedForName: 'Lynn Bragg',
+  openedForName: 'Demo Requester',
   assignedToName: 'Thomas Tahk',
   fields: {
     number: 'IMS0002749',
     type: 'Phone',
     state: 'Closed Complete',
-    opened_for: 'Lynn Bragg',
+    opened_for: 'Demo Requester',
     assigned_to: 'Thomas Tahk',
     duration_days: '0',
     duration_hours: '0',
     duration_minutes: '6',
     duration_seconds: '17',
-    short_description: '2 Step Backup verification code request',
+    short_description: '[Sample] Demo phone interaction',
   },
-  openedForDetail: 'Custodian: Head <6 Emp/Night · LA MESA ES',
-  openedForTimezone: 'Albuquerque · 08:15:45 AM US/Mountain',
+  openedForDetail: '[Job Title] · [Department]',
+  openedForTimezone: '[Location] · 00:00 AM [Timezone]',
 }
 
 export const interactionActivity: ActivityItem[] = [
@@ -34,7 +34,7 @@ export const interactionActivity: ActivityItem[] = [
     id: 'iact-2',
     type: 'note',
     author: 'Thomas Tahk',
-    content: 'need help with 2 step verification\n2 step is ON according to Google Admin\nCustomer was just asking for a backup code\nbackup code provided',
+    content: '[Sample work note]\nIssue triaged and resolved during the call.\nCustomer confirmed resolution before ending.',
     timestamp: '2026-01-14 08:15:45 AM',
   },
   {
