@@ -19,7 +19,7 @@ export const interactionRecord = {
     short_description: '[Sample] Demo phone interaction',
   },
   openedForDetail: '[Job Title] · [Department]',
-  openedForTimezone: '[Location] · 00:00 AM [Timezone]',
+  openedForTimezone: '00:00 AM US/Mountain',
 }
 
 export const interactionActivity: ActivityItem[] = [

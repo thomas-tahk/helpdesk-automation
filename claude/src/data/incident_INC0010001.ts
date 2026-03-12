@@ -32,10 +32,10 @@ export const incidentRecord = {
     cause_notes: '',
     resolution_notes: '',
     // Details — Incident section
-    description: 'Phone Number: 555-000-0000\nRoom Number: [Room]\n[Sample description] Users in the affected department are unable to send or receive email. Issue began at approximately 7:45 AM. Multiple staff members are affected.',
+    description: 'Phone Number: 505-555-0100\nRoom Number: [Room]\n[Sample description] Users in the affected department are unable to send or receive email. Issue began at approximately 7:45 AM. Multiple staff members are affected.',
     state: 'In Progress',
-    business_phone: '555-000-0000',
-    mobile_phone: '555-000-0001',
+    business_phone: '505-555-0100',
+    mobile_phone: '505-555-0101',
     middle_name: '',
     location: '[Sample Location]',
     work_notes_list: '',
