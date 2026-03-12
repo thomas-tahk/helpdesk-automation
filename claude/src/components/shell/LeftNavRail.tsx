@@ -4,7 +4,7 @@ import { NavLink, useLocation } from 'react-router-dom'
 const navItems = [
   { label: 'Home', to: '/home', icon: Home },
   { label: 'Lists', to: '#', icon: ClipboardList },
-  { label: 'Tasks', to: '/incident/INC0010001', icon: Calendar },
+  { label: 'Interactions', to: '/interaction/IMS0002749', icon: Calendar },
   { label: 'People', to: '#', icon: Users },
   { label: 'Reports', to: '#', icon: BarChart3 },
   { label: 'Settings', to: '#', icon: Settings },
@@ -17,7 +17,7 @@ export default function LeftNavRail() {
     <nav className="left-rail" aria-label="Primary">
       {navItems.map((item) => {
         const Icon = item.icon
-        const isTask = item.label === 'Tasks' && pathname.startsWith('/incident/')
+        const isTask = item.label === 'Interactions' && (pathname.startsWith('/incident/') || pathname.startsWith('/interaction/'))
         return (
           <NavLink
             key={item.label}

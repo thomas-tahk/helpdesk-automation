@@ -9,7 +9,7 @@ import {
   Users,
 } from 'lucide-react'
 
-export type ToolPanelId = 'record' | 'templates' | 'attachments' | 'recommendations'
+export type ToolPanelId = 'record' | 'templates' | 'attachments' | 'recommendations' | 'agent-assist'
 
 type ToolRailProps = {
   activeId: ToolPanelId
@@ -27,7 +27,7 @@ const tools: { id: ToolPanelId | string; label: string; icon: React.ComponentTyp
   { id: 'email-templates', label: 'Email Templates', icon: Mail },
 ]
 
-const activePanels = new Set<string>(['record', 'templates', 'attachments', 'recommendations'])
+const activePanels = new Set<string>(['record', 'templates', 'attachments', 'recommendations', 'agent-assist'])
 
 export default function ToolRail({ activeId, onSelect }: ToolRailProps) {
   return (

@@ -103,7 +103,11 @@ export default function Home() {
             />
           </div>
           <div className="home-cta" style={{ marginTop: 16 }}>
-            <Link to="/incident/INC0010001">Click on a widget to view the record below.</Link>
+            Click on a widget to view the record below.
+            &nbsp;·&nbsp;
+            <Link to="/incident/INC0010001">Demo Incident</Link>
+            &nbsp;·&nbsp;
+            <Link to="/interaction/IMS0002749">Demo Interaction</Link>
           </div>
         </div>
 

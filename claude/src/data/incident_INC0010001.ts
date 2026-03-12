@@ -16,19 +16,67 @@ export const incidentRecord = {
   callerName: 'Jordan Rivera',
   assignedToName: 'Demo Agent',
   fields: {
+    // Overview / Summary
     short_description: 'Sales team unable to send or receive email via Outlook web client',
     caller: 'Jordan Rivera',
     contact_type: 'Email',
+    // Impact
     impact: '2 - Medium',
     urgency: '1 - High',
     priority: '2 - High',
+    // Assignment
     assignment_group: 'Messaging Operations',
     assigned_to: 'Demo Agent',
     watch_list: '',
+    // Cause & Resolution
     cause_notes: '',
     resolution_notes: '',
+    // Details — Incident section
+    description: 'Phone Number: 505-555-0100\nRoom Number: A114\nSales team is unable to send or receive email from the sales shared mailbox since approximately 7:45 AM. Multiple staff members are affected.',
+    state: 'In Progress',
+    business_phone: '--',
+    mobile_phone: '--',
+    middle_name: '',
+    location: '',
+    work_notes_list: '',
+    managed_by_group: 'Messaging Operations',
+    channel: 'Email',
+    category: '-- None --',
+    subcategory: '-- None --',
+    opened: '2026-02-16 08:14:00 AM',
+    // Details — Impact section
+    service: '',
+    service_offering: '',
+    configuration_item: '',
+    business_impact: '',
+    // Details — Related Records section
+    parent_incident: '',
+    change_request: '',
+    problem: '',
+    caused_by_change: '',
+    // Resolution
+    resolution_code: '-- None --',
   },
 }
+
+export const incidentTasks = [
+  {
+    number: 'TASK0020088',
+    priority: '4 - Low',
+    state: 'Closed Complete',
+    assignedTo: 'Michael Reese',
+    shortDescription: 'Please reset the AD tokens for the user.',
+    taskType: 'Incident Task',
+  },
+  {
+    number: 'TASK0020089',
+    priority: '4 - Low',
+    state: 'Open',
+    assignedTo: '(empty)',
+    shortDescription: "Check the user's email for suspicious activity",
+    taskType: 'Incident Task',
+  },
+]
 
 export const initialActivity: ActivityItem[] = [
   {
