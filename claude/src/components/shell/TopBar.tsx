@@ -1,9 +1,6 @@
 import { Bell, ChevronDown, HelpCircle, Search, Settings } from 'lucide-react'
-import { useMode } from '../../app/ModeContext'
 
 export default function TopBar() {
-  const { mode, setMode } = useMode()
-
   return (
     <header className="topbar">
       <div className="topbar-left">
@@ -18,22 +15,6 @@ export default function TopBar() {
 
       <div className="topbar-center">
         <span className="topbar-title">Service Operations Workspace</span>
-        <div className="mode-toggle" role="group" aria-label="Mode toggle">
-          <button
-            type="button"
-            className={mode === 'current' ? 'active' : ''}
-            onClick={() => setMode('current')}
-          >
-            Current
-          </button>
-          <button
-            type="button"
-            className={mode === 'proposed' ? 'active' : ''}
-            onClick={() => setMode('proposed')}
-          >
-            Proposed
-          </button>
-        </div>
       </div>
 
       <div className="topbar-right">

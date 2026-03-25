@@ -15,6 +15,7 @@ import { interactionRecord, interactionActivity } from '../data/interaction_IMS0
 const interactionFields: FieldSpec[] = [
   { key: 'number', label: 'Number', type: 'readonly' },
   { key: 'opened_for', label: 'Opened for', type: 'lookup' },
+  { key: 'identification_no', label: 'Identification No.', type: 'text', placeholder: 'e.g. e123456 · 900000001 · John.Doe' },
   { key: 'type', label: 'Type', type: 'select', options: ['Phone', 'Email', 'Chat', 'Walk-up'] },
   { key: 'assigned_to', label: 'Assigned to', type: 'lookup' },
   { key: 'state', label: 'State', type: 'readonly' },

@@ -19,6 +19,7 @@ export const incidentRecord = {
     // Overview / Summary
     short_description: '[Sample] Email service disruption affecting multiple users',
     caller: 'Demo Caller',
+    identification_no: '',
     contact_type: 'Email',
     // Impact
     impact: '2 - Medium',

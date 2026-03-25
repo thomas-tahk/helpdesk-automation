@@ -11,6 +11,7 @@ export const interactionRecord = {
     type: 'Phone',
     state: 'Closed Complete',
     opened_for: 'Demo Requester',
+    identification_no: '',
     assigned_to: 'Thomas Tahk',
     duration_days: '0',
     duration_hours: '0',

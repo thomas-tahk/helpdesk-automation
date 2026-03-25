@@ -15,13 +15,13 @@ import PanelRecordInfo from '../components/tools/panels/PanelRecordInfo'
 import PanelRecommendations from '../components/tools/panels/PanelRecommendations'
 import PanelTemplates from '../components/tools/panels/PanelTemplates'
 import PanelAgentAssist from '../components/tools/panels/PanelAgentAssist'
-import { useMode } from '../app/ModeContext'
 import { incidentRecord, incidentTasks, initialActivity } from '../data/incident_INC0010001'
 
 // ── Overview tab field specs ──────────────────────────────────────────────────
 const summaryFields: FieldSpec[] = [
   { key: 'short_description', label: 'Short description', type: 'text', width: 'full' },
   { key: 'caller', label: 'Caller', type: 'lookup' },
+  { key: 'identification_no', label: 'Identification No.', type: 'text', placeholder: 'e.g. e123456 · 900000001 · John.Doe' },
   { key: 'contact_type', label: 'Contact type', type: 'select', options: ['Phone', 'Email', 'Walk-up', 'Self-service'] },
 ]
 const impactFields: FieldSpec[] = [
@@ -46,6 +46,7 @@ const detailsIncidentFields: FieldSpec[] = [
   { key: 'recordNumber', label: 'Number', type: 'readonly' },
   { key: 'state', label: 'State', type: 'select', options: ['New', 'In Progress', 'On Hold', 'Resolved', 'Closed', 'Cancelled'] },
   { key: 'caller', label: 'Caller', type: 'lookup' },
+  { key: 'identification_no', label: 'Identification No.', type: 'text', placeholder: 'e.g. e123456 · 900000001 · John.Doe' },
   { key: 'impact', label: 'Impact', type: 'select', options: ['1 - High', '2 - Medium', '3 - Low', '4 - None'] },
   { key: 'business_phone', label: 'Business phone', type: 'readonly' },
   { key: 'urgency', label: 'Urgency', type: 'select', options: ['1 - High', '2 - Medium', '3 - Low', '4 - None'] },
@@ -196,7 +197,6 @@ function RelatedRecordsView() {
 
 // ── Main component ─────────────────────────────────────────────────────────────
 export default function Incident() {
-  const { mode } = useMode()
   const [title, setTitle] = useState(incidentRecord.title)
   const [fields, setFields] = useState<Record<string, string | boolean>>({
     ...incidentRecord.fields,
@@ -255,11 +255,7 @@ export default function Incident() {
           <FieldRenderer key={f.key} field={f} value={fields[f.key] as string} onChange={updateField} />
         ))}
       </CollapsibleSection>
-      <CollapsibleSection
-        key={`assignment-${mode}`}
-        title="Assignment"
-        defaultOpen={mode === 'proposed'}
-      >
+      <CollapsibleSection title="Assignment" defaultOpen>
         {assignmentFields.map((f) => (
           <FieldRenderer key={f.key} field={f} value={fields[f.key] as string} onChange={updateField} />
         ))}
