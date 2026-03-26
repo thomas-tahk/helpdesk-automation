@@ -17,78 +17,83 @@ import PanelTemplates from '../components/tools/panels/PanelTemplates'
 import PanelAgentAssist from '../components/tools/panels/PanelAgentAssist'
 import { incidentRecord, incidentTasks, initialActivity } from '../data/incident_INC0010001'
 
-// ── Overview tab field specs ──────────────────────────────────────────────────
-const summaryFields: FieldSpec[] = [
-  { key: 'short_description', label: 'Short description', type: 'text', width: 'full' },
-  { key: 'caller', label: 'Caller', type: 'lookup' },
-  { key: 'identification_no', label: 'Identification No.', type: 'text', placeholder: 'e.g. e123456 · 900000001 · John.Doe' },
-  { key: 'contact_type', label: 'Contact type', type: 'select', options: ['Phone', 'Email', 'Walk-up', 'Self-service'] },
-]
-const impactFields: FieldSpec[] = [
-  { key: 'impact', label: 'Impact', type: 'select', options: ['1 - High', '2 - Medium', '3 - Low', '4 - None'] },
-  { key: 'urgency', label: 'Urgency', type: 'select', options: ['1 - High', '2 - Medium', '3 - Low', '4 - None'] },
-  { key: 'priority', label: 'Priority', type: 'readonly' },
-]
-const assignmentFields: FieldSpec[] = [
-  { key: 'assignment_group', label: 'Assignment group', type: 'lookup' },
-  { key: 'assigned_to', label: 'Assigned to', type: 'lookup' },
-  { key: 'watch_list', label: 'Watch list', type: 'text', width: 'full' },
-]
-const causeFields: FieldSpec[] = [
-  { key: 'cause_notes', label: 'Probable cause', type: 'textarea', width: 'full' },
-  { key: 'resolution_notes', label: 'Resolution notes', type: 'textarea', width: 'full' },
-]
+// ── Subcategory options by category ──────────────────────────────────────────
+// TODO: add subcategory options for remaining categories
+const subcategoryMap: Record<string, string[]> = {
+  'Accounts & Access | Email & Calendar': [
+    '-- None --',
+    'Active Directory',
+    'Centegix Support',
+    'Classroom Application Support',
+    'Email/Calendar',
+    'GoGuardian',
+    'Google Workspace User Management',
+  ],
+}
 
-// ── Details tab field specs ───────────────────────────────────────────────────
-const detailsIncidentFields: FieldSpec[] = [
+function getSubcategoryOptions(category: string): string[] {
+  return subcategoryMap[category] ?? ['-- None --']
+}
+
+// ── Priority matrix (Impact 1–3 × Urgency 1–3) ───────────────────────────────
+function computePriority(impact: string, urgency: string): string {
+  const i = parseInt(impact) || 3
+  const u = parseInt(urgency) || 3
+  const matrix: Record<string, string> = {
+    '1,1': '1 - Critical',
+    '1,2': '2 - High',
+    '1,3': '3 - Medium',
+    '2,1': '2 - High',
+    '2,2': '3 - Medium',
+    '2,3': '4 - Low',
+    '3,1': '3 - Medium',
+    '3,2': '4 - Low',
+    '3,3': '4 - Low',
+  }
+  return matrix[`${i},${u}`] ?? '4 - Low'
+}
+
+// ── Static field specs ────────────────────────────────────────────────────────
+const incidentTopFields: FieldSpec[] = [
   { key: 'short_description', label: 'Short description', type: 'text', width: 'full' },
   { key: 'description', label: 'Description', type: 'textarea', width: 'full' },
   { key: 'recordNumber', label: 'Number', type: 'readonly' },
-  { key: 'state', label: 'State', type: 'select', options: ['New', 'In Progress', 'On Hold', 'Resolved', 'Closed', 'Cancelled'] },
-  { key: 'caller', label: 'Caller', type: 'lookup' },
-  { key: 'identification_no', label: 'Identification No.', type: 'text', placeholder: 'e.g. e123456 · 900000001 · John.Doe' },
-  { key: 'impact', label: 'Impact', type: 'select', options: ['1 - High', '2 - Medium', '3 - Low', '4 - None'] },
-  { key: 'business_phone', label: 'Business phone', type: 'readonly' },
-  { key: 'urgency', label: 'Urgency', type: 'select', options: ['1 - High', '2 - Medium', '3 - Low', '4 - None'] },
-  { key: 'mobile_phone', label: 'Mobile phone', type: 'readonly' },
-  { key: 'middle_name', label: 'Middle name', type: 'text' },
+  { key: 'state', label: 'State', type: 'select', options: ['New', 'In Progress', 'On Hold', 'Resolved', 'Canceled'] },
+  { key: 'caller', label: 'Caller', type: 'lookup', width: 'full' },
+  { key: 'identification_no', label: 'Identification No.', type: 'readonly' },
+  { key: 'phone', label: 'Phone', type: 'text' },
+  { key: 'impact', label: 'Impact', type: 'select', options: ['1 - High', '2 - Medium', '3 - Low'] },
+  { key: 'urgency', label: 'Urgency', type: 'select', options: ['1 - High', '2 - Medium', '3 - Low'] },
+  { key: 'priority', label: 'Priority', type: 'readonly' },
   { key: 'location', label: 'Location', type: 'lookup' },
-  { key: 'work_notes_list', label: 'Work notes list', type: 'lookup' },
   { key: 'managed_by_group', label: 'Managed by group', type: 'readonly' },
-  { key: 'channel', label: 'Channel', type: 'select', width: 'full', options: ['Phone', 'Email', 'Walk-up', 'Self-service', 'Chat'] },
-  { key: 'category', label: 'Category', type: 'select', width: 'full', options: ['-- None --', 'Hardware', 'Software', 'Network', 'Access'] },
-  { key: 'subcategory', label: 'Subcategory', type: 'select', width: 'full', options: ['-- None --'] },
-  { key: 'opened', label: 'Opened', type: 'readonly', width: 'full' },
-]
-const detailsImpactFields: FieldSpec[] = [
-  { key: 'service', label: 'Service', type: 'lookup' },
-  { key: 'service_offering', label: 'Service offering', type: 'lookup' },
+  { key: 'channel', label: 'Channel', type: 'select', options: ['-- None --', 'Chat', 'Email', 'Phone', 'Self-service', 'Walk-in'] },
+  { key: 'category', label: 'Category', type: 'select', width: 'full', options: ['-- None --', 'Accounts & Access | Email & Calendar', 'Devices & Equipment', 'Internet, Wifi, and Telephone', 'Printing', 'Security & Compliance', 'Server, Database & Web', 'Software & Systems', 'Other'] },
+  // subcategory is built dynamically — see component body
+  { key: 'opened', label: 'Opened', type: 'readonly' },
   { key: 'configuration_item', label: 'Configuration item', type: 'lookup', width: 'full' },
-  { key: 'business_impact', label: 'Business impact', type: 'textarea', width: 'full' },
 ]
-const detailsRelatedRecordsFields: FieldSpec[] = [
+
+const assignmentFields: FieldSpec[] = [
+  { key: 'assignment_group', label: 'Assignment group', type: 'lookup' },
+  { key: 'assigned_to', label: 'Assigned to', type: 'lookup' },
+]
+
+const relatedRecordsFields: FieldSpec[] = [
   { key: 'parent_incident', label: 'Parent Incident', type: 'lookup' },
   { key: 'change_request', label: 'Change Request', type: 'lookup' },
   { key: 'problem', label: 'Problem', type: 'lookup' },
   { key: 'caused_by_change', label: 'Caused by Change', type: 'lookup' },
 ]
-const detailsCauseFields: FieldSpec[] = [
+
+const causeFields: FieldSpec[] = [
   { key: 'cause_notes', label: 'Probable cause', type: 'textarea', width: 'full' },
 ]
-const detailsResolutionFields: FieldSpec[] = [
-  { key: 'resolution_code', label: 'Resolution code', type: 'select', width: 'full', options: ['-- None --', 'Solved (Work Around)', 'Solved (Permanently)', 'Not Solved (Not Reproducible)', 'Closed/Resolved by Caller'] },
+
+const resolutionFields: FieldSpec[] = [
+  { key: 'resolution_code', label: 'Resolution code', type: 'select', width: 'full', options: ['-- None --', 'Duplicate', 'Known Error', 'No resolution provided', 'Resolved by caller', 'Resolved by change', 'Resolved by problem', 'Resolved by request', 'Solution provided'] },
   { key: 'resolution_notes', label: 'Resolution notes', type: 'textarea', width: 'full' },
 ]
-
-function computePriority(impact: string, urgency: string) {
-  const i = parseInt(impact) || 4
-  const u = parseInt(urgency) || 4
-  const score = Math.min(i, u)
-  if (score === 1) return '1 - Critical'
-  if (score === 2) return '2 - High'
-  if (score === 3) return '3 - Moderate'
-  return '4 - Low'
-}
 
 // ── Related Records sub-nav ───────────────────────────────────────────────────
 const relatedSubSections = [
@@ -112,7 +117,6 @@ function priorityBadgeClass(p: string) {
 
 function RelatedRecordsView() {
   const [activeSection, setActiveSection] = useState('incident-tasks')
-
   const tasks = activeSection === 'incident-tasks' ? incidentTasks : []
 
   return (
@@ -205,13 +209,16 @@ export default function Incident() {
   const [activityItems, setActivityItems] = useState(initialActivity)
   const [activePanel, setActivePanel] = useState<ToolPanelId>('record')
   const [panelLoading, setPanelLoading] = useState(false)
-  const [activeTab, setActiveTab] = useState<RecordTab>('overview')
+  const [activeTab, setActiveTab] = useState<RecordTab>('details')
 
   const updateField = (key: string, value: string | boolean) => {
     setFields((prev) => {
       const next = { ...prev, [key]: value }
       if (key === 'impact' || key === 'urgency') {
         next.priority = computePriority(String(next.impact), String(next.urgency))
+      }
+      if (key === 'category') {
+        next.subcategory = '-- None --'
       }
       return next
     })
@@ -223,7 +230,7 @@ export default function Incident() {
       case 'record':
         return (
           <PanelRecordInfo
-            state={incidentRecord.state}
+            state={String(fields.state)}
             priority={String(fields.priority)}
             assignmentGroup={String(fields.assignment_group)}
             callerName={incidentRecord.callerName}
@@ -238,42 +245,27 @@ export default function Incident() {
     }
   })()
 
-  // ── Overview tab left column ─────────────────────────────────────────────
-  const overviewContent = (
-    <>
-      <CollapsibleSection title="Summary" defaultOpen>
-        {summaryFields.map((f) => (
-          <FieldRenderer key={f.key} field={f} value={fields[f.key] as string} onChange={updateField} />
-        ))}
-      </CollapsibleSection>
-      <CollapsibleSection
-        title="Impact"
-        defaultOpen
-        badge={<span className="badge badge-gray">{fields.impact}</span>}
-      >
-        {impactFields.map((f) => (
-          <FieldRenderer key={f.key} field={f} value={fields[f.key] as string} onChange={updateField} />
-        ))}
-      </CollapsibleSection>
-      <CollapsibleSection title="Assignment" defaultOpen>
-        {assignmentFields.map((f) => (
-          <FieldRenderer key={f.key} field={f} value={fields[f.key] as string} onChange={updateField} />
-        ))}
-      </CollapsibleSection>
-      <CollapsibleSection title="Cause & Resolution">
-        {causeFields.map((f) => (
-          <FieldRenderer key={f.key} field={f} value={fields[f.key] as string} onChange={updateField} />
-        ))}
-      </CollapsibleSection>
-    </>
-  )
+  // Build the subcategory field spec dynamically based on current category
+  const subcategoryField: FieldSpec = {
+    key: 'subcategory',
+    label: 'Subcategory',
+    type: 'select',
+    width: 'full',
+    options: getSubcategoryOptions(String(fields.category)),
+  }
 
-  // ── Details tab left column ──────────────────────────────────────────────
+  // Splice subcategory in after category in the field list
+  const categoryIndex = incidentTopFields.findIndex((f) => f.key === 'category')
+  const incidentFields = [
+    ...incidentTopFields.slice(0, categoryIndex + 1),
+    subcategoryField,
+    ...incidentTopFields.slice(categoryIndex + 1),
+  ]
+
   const detailsContent = (
     <>
       <CollapsibleSection title="Incident" defaultOpen>
-        {detailsIncidentFields.map((f) => {
-          // Priority gets a special badge treatment
+        {incidentFields.map((f) => {
           if (f.key === 'priority') {
             const priorityVal = String(fields.priority || '')
             const badgeClass = priorityBadgeClass(priorityVal)
@@ -292,35 +284,28 @@ export default function Incident() {
           )
         })}
       </CollapsibleSection>
-      <CollapsibleSection title="Impact">
-        {detailsImpactFields.map((f) => (
-          <FieldRenderer key={f.key} field={f} value={fields[f.key] as string} onChange={updateField} />
-        ))}
-      </CollapsibleSection>
       <CollapsibleSection title="Assignment">
-        {[assignmentFields[0], assignmentFields[1]].map((f) => (
+        {assignmentFields.map((f) => (
           <FieldRenderer key={f.key} field={f} value={fields[f.key] as string} onChange={updateField} />
         ))}
       </CollapsibleSection>
       <CollapsibleSection title="Related Records">
-        {detailsRelatedRecordsFields.map((f) => (
+        {relatedRecordsFields.map((f) => (
           <FieldRenderer key={f.key} field={f} value={fields[f.key] as string} onChange={updateField} />
         ))}
       </CollapsibleSection>
       <CollapsibleSection title="Cause">
-        {detailsCauseFields.map((f) => (
+        {causeFields.map((f) => (
           <FieldRenderer key={f.key} field={f} value={fields[f.key] as string} onChange={updateField} />
         ))}
       </CollapsibleSection>
       <CollapsibleSection title="Resolution">
-        {detailsResolutionFields.map((f) => (
+        {resolutionFields.map((f) => (
           <FieldRenderer key={f.key} field={f} value={fields[f.key] as string} onChange={updateField} />
         ))}
       </CollapsibleSection>
     </>
   )
-
-  const leftContent = activeTab === 'overview' ? overviewContent : detailsContent
 
   return (
     <div className="incident-page">
@@ -328,7 +313,6 @@ export default function Incident() {
         title={title}
         onTitleChange={setTitle}
         recordNumber={incidentRecord.recordNumber}
-        state={incidentRecord.state}
         assignedTo={incidentRecord.assignedTo}
         activeTab={activeTab}
         onTabChange={setActiveTab}
@@ -338,7 +322,7 @@ export default function Incident() {
         <RelatedRecordsView />
       ) : (
         <RecordPageLayout
-          left={leftContent}
+          left={detailsContent}
           middle={
             <>
               <ComposeBox onPost={(item) => setActivityItems((prev) => [item, ...prev])} />

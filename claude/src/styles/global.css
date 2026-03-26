@@ -387,8 +387,12 @@ button, input, textarea, select { font-family: inherit; font-size: inherit; }
   padding: 6px 8px; font-size: var(--font-size-sm);
   background: var(--surface); color: var(--text);
 }
-.field input:focus, .field textarea:focus, .field select:focus {
-  outline: none; border-color: var(--accent);
+.field input:focus, .field textarea:focus, .field select:focus,
+.field-lookup-wrapper:focus-within input {
+  outline: none; border-color: var(--field-focus-border);
+}
+.field select:focus {
+  background: var(--field-focus-bg);
 }
 .field textarea { min-height: 72px; resize: vertical; }
 .field-readonly {

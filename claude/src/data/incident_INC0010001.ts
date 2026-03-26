@@ -12,51 +12,40 @@ export const incidentRecord = {
   title: '[Sample] Email service disruption affecting multiple users',
   recordNumber: 'INC0010001',
   state: 'In Progress',
-  assignedTo: 'Demo Agent',
+  assignedTo: 'Thomas Tahk',
   callerName: 'Demo Caller',
-  assignedToName: 'Demo Agent',
+  assignedToName: 'Thomas Tahk',
   fields: {
-    // Overview / Summary
+    // Incident
     short_description: '[Sample] Email service disruption affecting multiple users',
+    description: 'Phone Number: 505-555-0100\nRoom Number: [Room]\n[Sample description] Users in the affected department are unable to send or receive email. Issue began at approximately 7:45 AM. Multiple staff members are affected.',
+    state: 'In Progress',
     caller: 'Demo Caller',
-    identification_no: '',
-    contact_type: 'Email',
-    // Impact
+    identification_no: 'e123456',
+    phone: '505-555-0100',
     impact: '2 - Medium',
     urgency: '1 - High',
     priority: '2 - High',
-    // Assignment
-    assignment_group: 'Demo Group',
-    assigned_to: 'Demo Agent',
-    watch_list: '',
-    // Cause & Resolution
-    cause_notes: '',
-    resolution_notes: '',
-    // Details — Incident section
-    description: 'Phone Number: 505-555-0100\nRoom Number: [Room]\n[Sample description] Users in the affected department are unable to send or receive email. Issue began at approximately 7:45 AM. Multiple staff members are affected.',
-    state: 'In Progress',
-    business_phone: '505-555-0100',
-    mobile_phone: '505-555-0101',
-    middle_name: '',
     location: '[Sample Location]',
-    work_notes_list: '',
-    managed_by_group: 'Demo Group',
-    channel: 'Email',
-    category: '-- None --',
-    subcategory: '-- None --',
+    managed_by_group: 'Field Tech - North',
+    channel: 'Phone',
+    category: 'Accounts & Access | Email & Calendar',
+    subcategory: 'Active Directory',
     opened: '2026-02-16 08:14:00 AM',
-    // Details — Impact section
-    service: '',
-    service_offering: '',
+    // Impact
     configuration_item: '',
-    business_impact: '',
-    // Details — Related Records section
+    // Assignment
+    assignment_group: 'Service Desk',
+    assigned_to: 'Thomas Tahk',
+    // Related Records
     parent_incident: '',
     change_request: '',
     problem: '',
     caused_by_change: '',
-    // Resolution
+    // Cause & Resolution
+    cause_notes: '',
     resolution_code: '-- None --',
+    resolution_notes: '',
   },
 }
 
@@ -84,7 +73,7 @@ export const initialActivity: ActivityItem[] = [
     id: 'act-1',
     type: 'system',
     author: 'System',
-    content: 'Incident created and routed to Demo Group queue.',
+    content: 'Incident created and routed to Service Desk queue.',
     timestamp: '2026-02-16 08:14 AM',
   },
   {
@@ -97,14 +86,14 @@ export const initialActivity: ActivityItem[] = [
   {
     id: 'act-3',
     type: 'note',
-    author: 'Demo Agent',
+    author: 'Thomas Tahk',
     content: '[Sample work note] Reviewing mail transport logs and recent patch history. Checking if the weekend maintenance window caused any service disruption.',
     timestamp: '2026-02-16 08:30 AM',
   },
   {
     id: 'act-4',
     type: 'field-change',
-    author: 'Demo Agent',
+    author: 'Thomas Tahk',
     content: 'Incident state  In Progress was New',
     timestamp: '2026-02-16 08:31 AM',
   },
@@ -118,7 +107,7 @@ export const initialActivity: ActivityItem[] = [
   {
     id: 'act-6',
     type: 'email',
-    author: 'Demo Agent',
+    author: 'Thomas Tahk',
     content: '[Sample email] Sent status update to stakeholders. Next update scheduled in 30 minutes.',
     timestamp: '2026-02-16 08:36 AM',
   },

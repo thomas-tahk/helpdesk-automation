@@ -14,6 +14,10 @@
   --accent-hover: #0a5da8;
   --accent-soft: #e1f0ff;
 
+  /* Field focus */
+  --field-focus-border: #c0392b;
+  --field-focus-bg: #fff0f0;
+
   /* Status colors */
   --success: #1a8a5c;
   --success-bg: #e6f5ee;

@@ -1,19 +1,17 @@
 import { MoreHorizontal, Tag } from 'lucide-react'
 
-export type RecordTab = 'overview' | 'details' | 'related'
+export type RecordTab = 'details' | 'related'
 
 type RecordHeaderProps = {
   title: string
   onTitleChange: (value: string) => void
   recordNumber: string
-  state: string
   assignedTo: string
   activeTab: RecordTab
   onTabChange: (tab: RecordTab) => void
 }
 
 const tabs: { id: RecordTab; label: string }[] = [
-  { id: 'overview', label: 'Overview' },
   { id: 'details', label: 'Details' },
   { id: 'related', label: 'Related records' },
 ]
